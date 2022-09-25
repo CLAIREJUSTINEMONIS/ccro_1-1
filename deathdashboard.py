@@ -23,7 +23,7 @@ class Ui_Dashboard(object):
         connection = mc.connect(
                 host="localhost",
                 user="root",
-                passwd="123456",
+                passwd="",
                 database="ccro_cdo"
             )
             
@@ -63,7 +63,7 @@ class Ui_Dashboard(object):
         connection = mc.connect(
                 host="localhost",
                 user="root",
-                passwd="123456",
+                passwd="",
                 database="ccro_cdo"
             )
             
@@ -72,23 +72,28 @@ class Ui_Dashboard(object):
                 row = cur.execute("SELECT * FROM burial_permit_data")
                 data = cur.fetchall()
 
-                labels=[]
-                for c in range(self.tableWidget.columnCount()):
-                    it = self.tableWidget.horizontalHeaderItem(c)
-                    labels.append(str(c+1) if it is None else it.text())
-                    
-                    worksheet.write('A1',labels[0])
-                    # worksheet.write('B1',labels[0])
-                    
+                model = self.tableWidget.model()
+                for c in range(model.columnCount()):
+                    text = model.headerData(c, QtCore.Qt.Horizontal)
+                    worksheet.write(0, c+1, text)
 
-        
+                for r in range(model.rowCount()):
+                    text = model.headerData(r, QtCore.Qt.Vertical)
+                    worksheet.write(r+1, 0, text)
+
+                for c in range(model.columnCount()):
+                    for r in range(model.rowCount()):
+                        text = model.data(model.index(r, c))
+                        worksheet.write(r+1, c+1, text)
+                
+
         workbook.close()
 
     def searchResult(self):
             connection = mc.connect(
                     host="localhost",
                     user="root",
-                    passwd="123456",
+                    passwd="",
                     database="ccro_cdo"
                 )
             try:

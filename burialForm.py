@@ -490,7 +490,7 @@ class Ui_BurialForm(object):
         con = mc.connect(
                 host="localhost",
                 user="root",
-                passwd="123456",
+                passwd="",
                 database="ccro_cdo"
             )
         with con:

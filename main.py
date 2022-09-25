@@ -169,7 +169,7 @@ class Ui_adminloginscreen(object):
             connection = mc.connect(
                 host="localhost",
                 user="root",
-                password="123456",
+                password="",
                 database="ccro_cdo"
             )
             
